@@ -52,7 +52,7 @@ services:
             - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
             # - npm_config_unsafe_perm=true
             # - process.env.NODE_ENV='development'
-            # - CHOKIDAR_USEPOLLING=true
+            - CHOKIDAR_USEPOLLING=true
         tty: true
         stdin_open: true
 
@@ -76,7 +76,7 @@ services:
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
         depends_on:
-            # - web
+            - web
             - api
     mongo:
       container_name: mongodb
