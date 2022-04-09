@@ -1,0 +1,149 @@
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+body {
+  background: linear-gradient(to right, #3FB6A8, #7ED386);
+}
+.mt-7 {
+  margin: 6rem 0 0 0 !important;
+}
+.mt-14 {
+  margin: 8rem 0 0 0 !important;
+}
+.ms-7 {
+  margin: 0 0 0 4.5rem !important;
+}
+.mt-100 {
+  margin-top: 22% !important;
+}
+ul {
+  padding-left: 0 !important;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+.container {
+  background: #FFFFFF;
+  width: 540px;
+  height: 420px;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 10%;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+}
+.logo {
+  float: right;
+  margin-right: 12px;
+  margin-top: 12px;
+  font-family: 'Nunito Sans', sans-serif;
+  color: #3DBB3D;
+  font-weight: 900;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+.leftbox {
+  float: left;
+  top: -5%;
+  left: 5%;
+  position: absolute;
+  width: 15%;
+  height: 110%;
+  background: #7ED386;
+  box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
+}
+nav span {
+  list-style: none;
+  padding: 35px;
+  color: #FFFFFF;
+  font-size: 1.1em;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+nav span:hover {
+  color: #3FB6A8;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+nav span:first-child {
+  margin-top: 7px;
+}
+.active {
+  color: #3FB6A8;
+}
+.rightbox {
+  float: right;
+  width: 60%;
+  height: 100%;
+}
+.tab {
+  transition: opacity 0.5s ease-in;
+  position: absolute;
+  width: 70%;
+}
+input {
+  border: 1px solid #ddd;
+  font-family: 'Roboto', sans-serif;
+  padding: 2px;
+  margin: 0;
+}
+.list-container {
+  width: 340px;
+  height: 300px;
+}
+ul.list-style-none li {
+  list-style: none;
+}
+ul.list-style-none li a {
+  color: #673AB7;
+  display: block;
+  text-decoration: none;
+}
+.cut-text {
+  text-overflow: ellipsis;
+  overflow-x: hidden !important;
+  width: 330px;
+  white-space: nowrap;
+}
+.google-login-btn {
+  width: 17rem;
+  height: 3rem !important;
+  border-radius: 4px !important;
+  background: #dedede;
+  border: 0px transparent !important;
+  text-align: center;
+  margin: 5px;
+  display: inline-block;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+}
+.facebook-login-btn {
+  width: 17rem;
+  height: 3rem;
+  border-radius: 4px;
+  background: #3b5997;
+  color: white;
+  border: 0px transparent;
+  text-align: center;
+  margin: 5px;
+  display: inline-block;
+  font-size: 1rem !important;
+}
+.facebook-login-btn:hover {
+  background: #476db8;
+}
+
+
+body-aaaaaaaaaaa {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code-aaaaaaaaaaaaa {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+

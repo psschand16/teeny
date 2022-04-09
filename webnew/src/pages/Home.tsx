@@ -5,15 +5,15 @@ import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 // export const YOUR_ATTRIBUTE = process.env.YOU!;
 
 
 console.log(process.env.REACT_APP_A,process.env.REACT_APP_Y)
 
-console.log(env.REACT_APP_A,env.REACT_APP_Y)
+// console.log(env.REACT_APP_A,env.REACT_APP_Y)
 
 
 

@@ -73,7 +73,7 @@ RUN echo "NPM Version:" && npm --version
 #To avoid errors, you should ensure that the Python packages pip, wheel and setuptools are up to date before proceeding with the installation.
 # RUN python3.8 -m pip install --upgrade pip setuptools wheel 
 
-RUN sudo apt install npm
+# RUN sudo apt install npm
 # RUN npm install
 RUN sudo mkdir -p /app/node_modules
 RUN sudo mkdir -p  /app/node_modules/.cache
@@ -82,14 +82,14 @@ RUN sudo mkdir -p /app/node_modules/.cache/.eslintcache
 RUN sudo npm config set unsafe-perm true
 RUN sudo npm config set legacy-peer-deps true
 # RUN sudo npm audit fix --force
-RUN sudo npm uninstall node-sass
-RUN sudo npm install sass
+# RUN sudo npm uninstall node-sass
+# RUN sudo npm install sass
 RUN sudo npm install --save --legacy-peer-deps -f
 RUN sudo chown -R ${user} /app/*
 RUN sudo chown -R ${user} /app/node_modules/*
 RUN sudo mkdir -p node_modules/.cache && sudo chmod -R 777 node_modules/.cache
 RUN sudo mkdir -p node_modules/.cache && sudo chattr -R -ia  node_modules/.cache
-RUN sudo npm i --save-dev @types/node
+# RUN sudo npm i --save-dev @types/node
 
 
 CMD ["sudo","npm", "run", "start"]

@@ -1,0 +1,36 @@
+FROM node:16.8-slim
+
+USER root
+
+RUN apt-get update && \
+    apt-get -y install sudo
+
+ENV user root
+
+RUN apt-get update && \
+    apt-get install -y nginx
+
+# RUN useradd -m -d /home/${user} ${user} && \
+#     chown -R ${user} /home/${user} && \
+#     adduser ${user} sudo && \
+#     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER ${user}
+
+WORKDIR /app
+
+
+COPY . /app
+
+RUN  npm install  --target_arch=arm64 --target_platform=linux --legacy-peer-deps 
+
+# fixes Eaccess denied error 
+RUN sudo chown -R ${user} /app/*
+RUN sudo chown -R ${user} /app/node_modules/*
+RUN sudo mkdir -p node_modules/.cache && sudo chmod -R 777 node_modules/.cache
+RUN sudo mkdir -p node_modules/.cache && sudo chattr -R -ia  node_modules/.cache
+
+
+CMD /bin/bash ./run.sh
+
+

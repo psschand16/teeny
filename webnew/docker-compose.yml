@@ -1,0 +1,45 @@
+
+version: '2'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile1
+    image: ui-dev
+    container_name: webpack-container
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+      - "35729:35729"
+      - "27017:27017"
+      - "27018:27018"
+    volumes:
+      - .:/app
+      - /app/node_modules
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ui-test
+    container_name: webpack-test-container
+    environment:
+      - NODE_ENV=test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm test
+  prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: guest-ui-prod
+    container_name: prod-container
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "8002:8000"
+      - "27007:27017"
+      - "27008:27018"
+    volumes:
+      - /app/node_modules
