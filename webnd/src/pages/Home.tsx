@@ -5,8 +5,8 @@ import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 // export const YOUR_ATTRIBUTE = process.env.YOU!;
 

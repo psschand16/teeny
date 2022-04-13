@@ -17,6 +17,10 @@ class User(BaseModel):
     email: str
 
 
+@users_router.get("/hi")
+def get_user_hi(request: Request):
+    return "hellooooooooooo"
+
 @users_router.get("/")
 def get_user(request: Request):
     session_id = request.cookies.get("__SESSION_ID")

@@ -19,7 +19,6 @@ ENV user root
 #     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # USER ${user}
-RUN sudo rm -rf package-lock.json node_modules
 
 WORKDIR /app
 
@@ -83,14 +82,14 @@ RUN sudo mkdir -p /app/node_modules/.cache/.eslintcache
 RUN sudo npm config set unsafe-perm true
 RUN sudo npm config set legacy-peer-deps true
 # RUN sudo npm audit fix --force
-RUN sudo npm uninstall node-sass
-RUN sudo npm install sass
+# RUN sudo npm uninstall node-sass
+# RUN sudo npm install sass
 RUN sudo npm install --save --legacy-peer-deps -f
 RUN sudo chown -R ${user} /app/*
 RUN sudo chown -R ${user} /app/node_modules/*
 RUN sudo mkdir -p node_modules/.cache && sudo chmod -R 777 node_modules/.cache
 RUN sudo mkdir -p node_modules/.cache && sudo chattr -R -ia  node_modules/.cache
-RUN sudo npm i --save-dev @types/node
+# RUN sudo npm i --save-dev @types/node
 
 
 CMD ["sudo","npm", "run", "start"]
