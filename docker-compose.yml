@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
     webnp:
-  
         build: 
             context: ./webnew
             dockerfile: Dockerfile
@@ -85,61 +84,72 @@ services:
     #     tty: true
     #     stdin_open: true
     
-    web:
-        # container_name: teenyurl_web
-        build: 
-            context: ./web
-            dockerfile: Dockerfile.ubuntu.dev
-        ports:
-        - "0.0.0.0:3000:3000"
-        # ports:
-        #     - "3000"        
-        volumes:
-        - /app/node_modules
-        - ./web:/app
-        # env_file:
-        # - ./.env
-        environment: 
-            - REACT_APP_A=${A}
-            - REACT_APP_Y=fromdockercompose
-            - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
-            - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
-            - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-            - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
-            # - npm_config_unsafe_perm=true
-            # - process.env.NODE_ENV='development'
-            - CHOKIDAR_USEPOLLING=true
-        tty: true
-        stdin_open: true
-
+    # web:
+    #     # container_name: teenyurl_web
+    #     build: 
+    #         context: ./web
+    #         dockerfile: Dockerfile.ubuntu.dev
+    #     ports:
+    #     - "0.0.0.0:3000:3000"
+    #     # ports:
+    #     #     - "3000"        
+    #     volumes:
+    #     - /app/node_modules
+    #     - ./web:/app
+    #     # env_file:
+    #     # - ./.env
+    #     environment: 
+    #         - REACT_APP_A=${A}
+    #         - REACT_APP_Y=fromdockercompose
+    #         - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
+    #         - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
+    #         - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    #         - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+    #         # - npm_config_unsafe_perm=true
+    #         # - process.env.NODE_ENV='development'
+    #         - CHOKIDAR_USEPOLLING=true
+    #     tty: true
+    #     stdin_open: true
     api:
-        # container_name: teenyurl_api
-        build:
-            context: ./api
+        build: ./api
+        image: fast-api-app
+        command: uvicorn main:api --reload --workers 1 --host 0.0.0.0 --port 8000
         ports:
-            - "8000"
-        volumes: 
-            - ./api:/usr/src/api
+        - 8005:8000 # host port : container port
+        volumes:
+        - ./api/:/app
         environment:
             SECRET_KEY: ${SECRET_KEY}
             # DB_URI: ${DB_URI}
             DB_URI: mongodb://${ROOT}:${PASS}@mongo:${PORTMONGO}/
+   
+    # api:
+    #     # container_name: teenyurl_api
+    #     build:
+    #         context: ./api
+    #     command: uvicorn main:api --reload --workers 1 --host 0.0.0.0 --port 8000
+    #     ports:
+    #         - "8000"
+    #     volumes: 
+    #         # - ./api:/usr/src/api
+    #          - ./api:/app
+    #     environment:
+    #         SECRET_KEY: ${SECRET_KEY}
+    #         # DB_URI: ${DB_URI}
+    #         DB_URI: mongodb://${ROOT}:${PASS}@mongo:${PORTMONGO}/
     proxy:
         # container_name: teenyurl_proxy
         image: nginx:latest
         ports:
-            - "80:80"
-        links:
-            - "web:web"    
+            - "80:80"    
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
         # networks:
         #     - teeny_default
             
         depends_on:
-            - web
             - api
-            - webnp
+        
     mongo:
       container_name: mongodb
       image: mongo:5-focal

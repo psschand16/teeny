@@ -1,13 +1,33 @@
-FROM python:3.9-alpine
 
-ENV PYTHONUNBUFFERED 1
+#base image to create container
+FROM python:3.9-slim
 
-WORKDIR /usr/src/api
+#creating work directory inside container
+WORKDIR /app
 
-COPY ./requirements.txt /usr/src/api/requirements.txt
+#copying requirements.txt to container work directory
+COPY requirements.txt ./
 
-RUN pip install -r requirements.txt
+# Installing dependency files inside container
+RUN pip3 install --no-cache-dir -r requirements.txt 
 
-COPY . /usr/src/api
+#copying all other codes into container work directory
+COPY . .
 
-CMD uvicorn main:api --host 0.0.0.0 --port 8000
+#Exposing container port
+EXPOSE 8000
+# =============
+
+# FROM python:3.9-alpine
+
+# ENV PYTHONUNBUFFERED 1
+
+# WORKDIR /usr/src/api
+
+# COPY ./requirements.txt /usr/src/api/requirements.txt
+
+# RUN pip install -r requirements.txt
+
+# COPY . /usr/src/api
+
+# CMD uvicorn main:api --host 0.0.0.0 --port 8000  

@@ -10,7 +10,7 @@ import axios from 'axios';
 
 // export const YOUR_ATTRIBUTE = process.env.YOU!;
 
-
+const baseUri = process.env.REACT_APP_URL_BASEURI
 console.log(process.env.REACT_APP_A,process.env.REACT_APP_Y)
 
 // console.log(env.REACT_APP_A,env.REACT_APP_Y)
@@ -29,12 +29,30 @@ const Home = () => {
     const [email, setemail] = useState("")
     const [toast, settoast] = useState(0)
     const [toasttext, settoasttext] = useState("")
+    // { crossDomain: true }
+    // const baseUri = "http://localhost"
+    // const baseUri = "http://shatkon.tk"
+    // {headers: {
+    //     "Access-Control-Allow-Origin": true
+    //   }}
+    const axiosConfig = {
+        // withCredentials: true,
+        headers: {
+        "Access-Control-Allow-Origin": true,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        }
+      };
+    console.log(axiosConfig)  
+    // const axiosConfig = {
+    //     headers: {
+    //         "Access-Control-Allow-Origin": true        }
+    //   };
 
-    const baseUri = "http://localhost"
     // const baseUri = process.env.REACT_APP_URL_BASEURI
     console.log("========",process.env.REACT_APP_URL_BASEURI,process.env.REACT_APP_URL_HOST)
     const fetchUrls = async () => {
-        await axios.get(baseUri + "/api/v1/urls/")
+        await axios.get(baseUri + "/api/v1/urls/",axiosConfig)
             .then((res) => {
                 seturls(res.data)
             })
@@ -46,10 +64,10 @@ const Home = () => {
     }
 
     const shortenUrl = () => {
-        axios.post(baseUri + "/api/v1/urls/create/", {
+        axios.post(baseUri + "/api/v1/urls/create/",{
             "url": alias,
             "source": url
-        }).then((res) => {
+        },axiosConfig).then((res) => {
             setshortUrl(process.env.REACT_APP_URL_HOST + res.data.url)
         }).catch((err: any) => console.log(err))
         fetchUrls()
@@ -59,23 +77,23 @@ const Home = () => {
         axios.post(baseUri + "/api/v1/users/update/", {
             "name": name,
             "email": email
-        }).then((res) => {
+        },axiosConfig).then((res) => {
             console.log("done")
         }).catch((err: any) => console.log(err))
     }
 
     const signout = () => {
-        axios.post(baseUri + "/api/v1/users/signout/")
+        axios.post(baseUri + "/api/v1/users/signout/",axiosConfig)
             .then(() => {
                 setuser(0)
             }).catch((err: any) => console.log(err))
     }
 
     const handleGoogleLogin = (googleData: any) => {
-        axios.post(baseUri + "/api/v1/users/signin/", {
+        axios.post(baseUri + "/api/v1/users/signin/",{
             "name": googleData.profileObj.givenName + googleData.profileObj.familyName,
             "email": googleData.profileObj.email
-        }).then((res) => {
+        },axiosConfig).then((res) => {
             setuser?.(1);
             setname(res.data.name)
             setemail(res.data.email)
@@ -87,7 +105,7 @@ const Home = () => {
         axios.post(baseUri + "/api/v1/users/signin/", {
             "name": facebookData.name,
             "email": facebookData.email
-        }).then((res) => {
+        },axiosConfig).then((res) => {
             setuser?.(1);
             setname(res.data.name)
             setemail(res.data.email)
@@ -96,7 +114,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        axios.get(baseUri + "/api/v1/users/")
+        axios.get(baseUri + "/api/v1/users/",axiosConfig)
             .then((res) => {
                 if (res.data) {
                     setuser(1)
