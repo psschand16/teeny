@@ -7,14 +7,32 @@ const Redirect = () => {
 
     const [loading, setloading] = useState(1)
 
-    const baseUri = "http://teenyurl.ml"
-    const  url  = useParams();
-    // const { url }: { url : string } = useParams();
+    const baseUri = process.env.REACT_APP_URL_BASEURI
+    const axiosConfig = {
+        // withCredentials: true,
+        headers: {
+        "Access-Control-Allow-Origin": true,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        }
+      };
+    // const baseUri = "http://teenyurl.ml"
+    console.log("-------------------redirect-------------------------")
+    console.log(useParams()['url'])
+    const  url  = useParams()['url']
+    console.log("-------------------url-------------------------")
+    // console.log(url['url'])
+    
 
     const fetchUrl = async () => {
         
-        await axios.get(baseUri + "/api/v1/urls/" + url + "/")
+        await axios.get(baseUri + "/api/v1/urls/" + url + "/",axiosConfig)
             .then((res: any) => {
+                console.log(res.data.source)
+                console.log(res)
+                // window.location.href = res.data.source;
+                // window.open(res.data.source, "_blank");
+                // window.location.assign(res.data.source)
                 window.location.replace(res.data.source)
                 setloading(0)
             })

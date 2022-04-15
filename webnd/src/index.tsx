@@ -19,15 +19,27 @@ import Redirect from './pages/Redirect'
 // );
 
 
+// ReactDOM.render(
+//   <React.StrictMode>
+//   <Router>
+//       <Routes>
+//         <Route path='/'  element= {<Home />}  />
+//         <Route path='/:url' element= {<Redirect />}  />
+//       </Routes>
+//     </Router>,
+//     </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
 ReactDOM.render(
-  <React.StrictMode>
+ 
   <Router>
       <Routes>
         <Route path='/'  element= {<Home />}  />
         <Route path='/:url' element= {<Redirect />}  />
       </Routes>
-    </Router>
-    </React.StrictMode>,
+    </Router>,
+   
   document.getElementById('root')
 );
 

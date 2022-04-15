@@ -11,6 +11,8 @@ import axios from 'axios';
 // export const YOUR_ATTRIBUTE = process.env.YOU!;
 
 const baseUri = process.env.REACT_APP_URL_BASEURI
+
+
 console.log(process.env.REACT_APP_A,process.env.REACT_APP_Y)
 
 // console.log(env.REACT_APP_A,env.REACT_APP_Y)
