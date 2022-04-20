@@ -52,3 +52,44 @@ Do not put semicolon ; or comma , at the end of each line.
 
 ===================
 Nginx port should match docker should match config and env
+===============
+
+netstat -tln | grep 80
+
+sudo lsof -i :80
+
+sudo kill -9 processid
+
+=====================
+Bind to local host
+proxy 
+localhost            ok
+shatkon.tk           ok
+docker-gateway-ip    ok
+docker-ip            ok
+
+
+api:8000
+localhost            ok
+shatkon.tk           -
+docker-gateway-ip    -
+docker-ip            -
+
+
+frontend:5000
+localhost            ok
+shatkon.tk           -
+docker-gateway-ip    -
+docker-ip            -
+
+
+outside
+site                 ok
+ports
+========================
+bind to open
+
+
+proxy manager
+============================
+change urls in env ti http when testing local

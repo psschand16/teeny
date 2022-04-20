@@ -1,0 +1,1 @@
+2022/04/20 22:20:07 [warn] 305#305: *30 an upstream response is buffered to a temporary file /var/cache/nginx/proxy_temp/1/00/0000000001 while reading upstream, client: 90.249.140.201, server: shatkon.tk, request: "GET /static/js/bundle.js HTTP/2.0", upstream: "http://172.19.0.2:5000/static/js/bundle.js", host: "shatkon.tk", referrer: "https://shatkon.tk/"

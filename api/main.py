@@ -15,6 +15,9 @@ api = FastAPI(title="TeenyURL API",
 api.include_router(urls_router, prefix="/urls", tags=["Urls API"])
 api.include_router(users_router, prefix="/users", tags=["Users API"])
 
+api.include_router(urls_router, prefix="/api/v1/urls", tags=["Urls API"])
+api.include_router(users_router, prefix="/api/v1/users", tags=["Users API"])
+
 origins = ["*"]
 
 # origins = [
