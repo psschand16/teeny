@@ -14,6 +14,7 @@ const baseUri = process.env.REACT_APP_URL_BASEURI
 
 
 console.log(process.env.REACT_APP_A,process.env.REACT_APP_Y)
+console.log("googleclient",process.env.REACT_APP_GOOGLE_CLIENT_ID)
 
 // console.log(env.REACT_APP_A,env.REACT_APP_Y)
 
@@ -40,7 +41,8 @@ const Home = () => {
     const axiosConfig = {
         // withCredentials: true,
         headers: {
-        "Access-Control-Allow-Origin": true,
+        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": true,
         Accept: "application/json",
         "Content-Type": "application/json",
         }
@@ -67,6 +69,7 @@ const Home = () => {
 
     const shortenUrl = () => {
         axios.post(baseUri + "/api/v1/urls/create/",{
+        // axios.post(baseUri + "/urls/create/",{    
             "url": alias,
             "source": url
         },axiosConfig).then((res) => {
@@ -77,6 +80,7 @@ const Home = () => {
 
     const updateProfile = () => {
         axios.post(baseUri + "/api/v1/users/update/", {
+        // axios.post(baseUri + "/users/update/", {    
             "name": name,
             "email": email
         },axiosConfig).then((res) => {
@@ -86,6 +90,7 @@ const Home = () => {
 
     const signout = () => {
         axios.post(baseUri + "/api/v1/users/signout/",axiosConfig)
+        // axios.post(baseUri + "/users/signout/",axiosConfig)
             .then(() => {
                 setuser(0)
             }).catch((err: any) => console.log(err))
@@ -93,6 +98,7 @@ const Home = () => {
 
     const handleGoogleLogin = (googleData: any) => {
         axios.post(baseUri + "/api/v1/users/signin/",{
+        // axios.post(baseUri + "/users/signin/",{
             "name": googleData.profileObj.givenName + googleData.profileObj.familyName,
             "email": googleData.profileObj.email
         },axiosConfig).then((res) => {
@@ -105,6 +111,7 @@ const Home = () => {
 
     const handleFacebookLogin = (facebookData: any) => {
         axios.post(baseUri + "/api/v1/users/signin/", {
+        // axios.post(baseUri + "/users/signin/", {
             "name": facebookData.name,
             "email": facebookData.email
         },axiosConfig).then((res) => {
@@ -117,6 +124,7 @@ const Home = () => {
 
     useEffect(() => {
         axios.get(baseUri + "/api/v1/users/",axiosConfig)
+        // axios.get(baseUri + "/users/",axiosConfig)
             .then((res) => {
                 if (res.data) {
                     setuser(1)
@@ -142,7 +150,7 @@ const Home = () => {
             <div className="rightbox">
                 {tab === 0 && <div className="tab">
                     <div className="form-group mt-7">
-                        <label className="fw-bold"><i className="far fa-keyboard mx-1"></i> Enter a long URL to make a TeenyURL </label>
+                        <label className="fw-bold"><i className="far fa-keyboard mx-1"></i> Enter a long URL to make a TeenyURL {`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`} </label>
                         <input type="text" className="form-control w-75 my-3 shadow-none fst-italic" onChange={(e) => seturl(e.target.value)} placeholder="url" autoComplete="off" />
                     </div>
                     <div className="form-group my-1">

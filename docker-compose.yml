@@ -1,33 +1,33 @@
 version: '3.8'
 
 services:
-    webnp:
-        build: 
-            context: ./webnew
-            dockerfile: Dockerfile
-        ports:
-        - "0.0.0.0:4000:4000"
-        # ports:
-        #     - "3000"        
-        volumes:
-        - /app/node_modules
-        - ./webnew:/app
-        # env_file:
-        # - ./.env
-        environment: 
-            # - NODE_ENV=production
-            - NODE_ENV=development
-            - REACT_APP_A=${A}
-            - REACT_APP_Y=fromdockercompose
-            - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
-            - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
-            - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-            - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
-            # - npm_config_unsafe_perm=true
-            - process.env.NODE_ENV='development'
-            - CHOKIDAR_USEPOLLING=true
-        tty: true
-        stdin_open: true
+    # webnp:
+    #     build: 
+    #         context: ./webnew
+    #         dockerfile: Dockerfile
+    #     ports:
+    #     - "0.0.0.0:4000:4000"
+    #     # ports:
+    #     #     - "3000"        
+    #     volumes:
+    #     - /app/node_modules
+    #     - ./webnew:/app
+    #     # env_file:
+    #     # - ./.env
+    #     environment: 
+    #         # - NODE_ENV=production
+    #         - NODE_ENV=development
+    #         - REACT_APP_A=${A}
+    #         - REACT_APP_Y=fromdockercompose
+    #         - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
+    #         - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
+    #         - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    #         - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+    #         # - npm_config_unsafe_perm=true
+    #         - process.env.NODE_ENV='development'
+    #         - CHOKIDAR_USEPOLLING=true
+    #     tty: true
+    #     stdin_open: true
 
     webnd:
   
@@ -35,10 +35,10 @@ services:
             context: ./webnd
             dockerfile: Dockerfile
         ports:
-        - "0.0.0.0:5000:5000"
-        # - "20008:27018"
+        - "127.0.0.1:5000:5000"
+        - "20008:27018"
         # ports:
-        #     - "3000"        
+        #     - "0.0.0.0:5000"        
         volumes:
         - /app/node_modules
         - ./webnd:/app
@@ -48,7 +48,7 @@ services:
             - REACT_APP_Y=fromdockercompose
             - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
             - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
-            - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            # - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
             - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
             # - npm_config_unsafe_perm=true
             - process.env.NODE_ENV='development'
@@ -84,38 +84,38 @@ services:
     #     tty: true
     #     stdin_open: true
     
-    web:
-        # container_name: teenyurl_web
-        build: 
-            context: ./web
-            dockerfile: Dockerfile.ubuntu.dev
-        ports:
-        - "0.0.0.0:3000:3000"
-        # ports:
-        #     - "3000"        
-        volumes:
-        - /app/node_modules
-        - ./web:/app
-        # env_file:
-        # - ./.env
-        environment: 
-            - REACT_APP_A=${A}
-            - REACT_APP_Y=fromdockercompose
-            - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
-            - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
-            - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-            - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
-            # - npm_config_unsafe_perm=true
-            # - process.env.NODE_ENV='development'
-            - CHOKIDAR_USEPOLLING=true
-        tty: true
-        stdin_open: true
+    # web:
+    #     # container_name: teenyurl_web
+    #     build: 
+    #         context: ./web
+    #         dockerfile: Dockerfile.ubuntu.dev
+    #     ports:
+    #     - "0.0.0.0:3000:3000"
+    #     # ports:
+    #     #     - "3000"        
+    #     volumes:
+    #     - /app/node_modules
+    #     - ./web:/app
+    #     # env_file:
+    #     # - ./.env
+    #     environment: 
+    #         - REACT_APP_A=${A}
+    #         - REACT_APP_Y=fromdockercompose
+    #         - REACT_APP_URL_HOST=${REACT_APP_URL_HOST}
+    #         - REACT_APP_URL_BASEURI=${REACT_APP_URL_BASEURI}
+    #         - REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    #         - REACT_APP_FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+    #         # - npm_config_unsafe_perm=true
+    #         # - process.env.NODE_ENV='development'
+    #         - CHOKIDAR_USEPOLLING=true
+    #     tty: true
+    #     stdin_open: true
     api:
         build: ./api
         image: fast-api-app
         command: uvicorn main:api --reload --workers 1 --host 0.0.0.0 --port 8000
         ports:
-        - 8005:8000 # host port : container port
+        - 127.0.0.1:8000:8000 # host port : container port
         volumes:
         - ./api/:/app
         environment:
@@ -149,7 +149,17 @@ services:
             
         depends_on:
             - api
-        
+
+    # proxymanager:
+    #     image: 'jc21/nginx-proxy-manager:latest'
+    #     restart: unless-stopped
+    #     ports:
+    #     - '80:80'
+    #     - '81:81'
+    #     - '443:443'
+    #     volumes:
+    #     - ./data:/data
+    #     - ./letsencrypt:/etc/letsencrypt
     mongo:
       container_name: mongodb
       image: mongo:5-focal
@@ -163,7 +173,7 @@ services:
       # networks:
       #   - mongo-compose-network  
       ports:
-        - 27017:27017
+        - 127.0.0.1:27017:27017
     mongo-express:
       container_name: mongodb_express
       image: mongo-express:latest
@@ -171,7 +181,7 @@ services:
       environment:
         ME_CONFIG_MONGODB_URL: mongodb://${ROOT}:${PASS}@mongo:${PORTMONGO}/
       ports:
-        - 8001:8081
+        - 127.0.0.1:8001:8081
       depends_on: 
         - mongo    
 

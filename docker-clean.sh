@@ -1,11 +1,11 @@
 
+# appwrite 
 
-
-sudo docker stop $(sudo docker ps -a |  grep -v "portainer" | cut -d ' ' -f1) 
-sudo docker kill $(sudo docker ps -a | grep -v "portainer" | cut -d ' ' -f1) # stop all containers
-sudo docker rm $(sudo docker ps -a |  grep -v "portainer" | cut -d ' ' -f1) --force
-sudo docker rmi $(sudo docker images -q | grep -v "portainer" | cut -d ' ' -f1) --force
-echo y | sudo docker volume rm $(sudo docker volume ls | grep -v "portainer" | awk 'NR>1 {print $2}' ) --force
+sudo docker stop $(sudo docker ps -a |  grep -v "portainer" |   grep -v "appwrite" | cut -d ' ' -f1) 
+sudo docker kill $(sudo docker ps -a | grep -v "portainer" | grep -v "appwrite" | cut -d ' ' -f1) # stop all containers
+sudo docker rm $(sudo docker ps -a |  grep -v "portainer" |  grep -v "appwrite" | cut -d ' ' -f1) --force
+sudo docker rmi $(sudo docker images -q | grep -v "portainer"|  grep -v "appwrite"  | cut -d ' ' -f1) --force
+echo y | sudo docker volume rm $(sudo docker volume ls | grep -v "portainer" |  grep -v "appwrite" | awk 'NR>1 {print $2}' ) --force
 
 echo y | sudo docker network prune 
 # sudo docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce

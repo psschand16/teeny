@@ -49,3 +49,6 @@ Additional tips
 
 No need to wrap your variable value in single or double quotes.
 Do not put semicolon ; or comma , at the end of each line.
+
+===================
+Nginx port should match docker should match config and env
